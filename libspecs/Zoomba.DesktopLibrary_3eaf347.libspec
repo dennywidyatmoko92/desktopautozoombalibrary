@@ -1,0 +1,1259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<keywordspec format="ROBOT" generated="20220113 21:47:46" name="Zoomba.DesktopLibrary" type="library">
+<version>1.5.0.4</version>
+<scope>global</scope>
+<namedargs>yes</namedargs>
+<doc>Zoomba Desktop Library
+
+This class is the base Library used to generate automated Desktop Tests in the Robot Automation Framework using
+Appium. This Library uses and extends the robotframework-appiumlibrary.
+
+= Locating or Specifying Elements =
+
+All keywords in DesktopLibrary that need to find an element on the page take a locator argument. To find these
+locators we use **inspect.exe**. Microsoft Visual Studio 2015 by default includes Windows SDK that provides
+great tool to inspect the application you are testing. This tool allows you to see every UI element/node that you
+can interact with using DesktopLibrary. This **inspect.exe** tool can be found under the Windows SDK folder such as
+`C:\Program Files (x86)\Windows Kits\10\bin\x86`. The tool will show various element attributes. The table below
+shows you witch locator strategy you should use to find elements with the corresponding attributes.
+
+| *Locator Strategy* | *Matched Attribute in inspect.exe* | *Example*                                         |
+|  accessibility id  |            AutomationId            | Click Element `|` accessibility_id=my_element_id  |
+|       class        |              ClassName             | Click Element `|` class=UIAPickerWheel            |
+|       name         |                Name                | Click Element `|` name=my_element                 |
+
+Example tests using the windows calculator are located in the tests directory.
+
+= Use of Wait Keywords =
+
+When using a modern Windows application there should be no issue with using the 'Wait For And' keywords. However if
+you are using an older WinForm, Win32, or a larger application it may be necessary to simply use the non-waiting
+version of keywords. Then you would simply add your waits in manually where necessary using something like
+``Wait Until Page Contains`` or ``Wait Until Page Contains Element``.</doc>
+<init>
+<arguments>
+<arg>timeout=5</arg>
+<arg>run_on_failure=Save Appium Screenshot</arg>
+</arguments>
+<doc>DesktopLibrary can be imported with optional arguments.
+``timeout`` is the default timeout used to wait for all waiting actions.
+It can be later set with `Set Appium Timeout`.
+``run_on_failure`` specifies the name of a keyword (from any available
+libraries) to execute when a DesktopLibrary keyword fails.
+By default `Save Appium Screenshot` will be used to take a screenshot of the current page.
+Using the value `No Operation` will disable this feature altogether. See
+`Register Keyword To Run On Failure` keyword for more information about this
+functionality.
+Examples:
+| Library | DesktopLibrary | 10 | # Sets default timeout to 10 seconds                                                                             |
+| Library | DesktopLibrary | timeout=10 | run_on_failure=No Operation | # Sets default timeout to 10 seconds and does nothing on failure           |</doc>
+<tags>
+</tags>
+</init>
+<kw name="Capture Page Screenshot">
+<arguments>
+<arg>filename=None</arg>
+</arguments>
+<doc>Takes a screenshot of the current page and embeds it into the log.
+
+`filename` argument specifies the name of the file to write the
+screenshot into. If no `filename` is given, the screenshot is saved into file
+`appium-screenshot-&lt;counter&gt;.png` under the directory where
+the Robot Framework log file is written into. The `filename` is
+also considered relative to the same directory, if it is not
+given in absolute format.
+
+`css` can be used to modify how the screenshot is taken. By default
+the bakground color is changed to avoid possible problems with
+background leaking when the page layout is somehow broken.
+
+See `Save Appium Screenshot` for a screenshot that will be unique across reports</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Clear Text">
+<arguments>
+<arg>locator</arg>
+</arguments>
+<doc>Clears the text field identified by `locator`.
+
+See `introduction` for details about locating elements.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Click A Point">
+<arguments>
+<arg>x_offset=0</arg>
+<arg>y_offset=0</arg>
+<arg>double_click=False</arg>
+</arguments>
+<doc>Clicks the current mouse location.
+
+``x_offset`` and ``y_offset`` can be applied to give an offset.
+
+``double_click`` can be used to click twice.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Click Button">
+<arguments>
+<arg>index_or_name</arg>
+</arguments>
+<doc>Click button</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Click Element">
+<arguments>
+<arg>locator</arg>
+</arguments>
+<doc>Click element identified by `locator`.
+
+Key attributes for arbitrary elements are `index` and `name`. See
+`introduction` for details about locating elements.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Click Text">
+<arguments>
+<arg>text</arg>
+<arg>exact_match=False</arg>
+</arguments>
+<doc>Click text identified by ``text``.
+
+By default tries to click first text involves given ``text``, if you would
+like to click exactly matching text, then set ``exact_match`` to `True`.
+
+If there are multiple use  of ``text`` and you do not want first one,
+use `locator` with `Get Web Elements` instead.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Close All Applications">
+<arguments>
+</arguments>
+<doc>Closes all open applications.
+
+This keyword is meant to be used in test or suite teardown to
+make sure all the applications are closed before the test execution
+finishes.
+
+After this keyword, the application indices returned by `Open Application`
+are reset and start from `1`.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Close Application">
+<arguments>
+</arguments>
+<doc>Closes the current application and also close webdriver session.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Context Click A Point">
+<arguments>
+<arg>x_offset=0</arg>
+<arg>y_offset=0</arg>
+</arguments>
+<doc>Right-clicks the current mouse location.
+
+``x_offset`` and ``y_offset`` can be applied to give an offset.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Drag And Drop">
+<arguments>
+<arg>source</arg>
+<arg>target</arg>
+</arguments>
+<doc>Drags the element found with the locator  ``source`` to the element found with the locator ``target``.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Drag And Drop By Offset">
+<arguments>
+<arg>locator</arg>
+<arg>x_offset=0</arg>
+<arg>y_offset=0</arg>
+</arguments>
+<doc>Drags the element found with ``locator`` to the given ``x_offset`` and ``y_offset`` coordinates.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Element Attribute Should Match">
+<arguments>
+<arg>locator</arg>
+<arg>attr_name</arg>
+<arg>match_pattern</arg>
+<arg>regexp=False</arg>
+</arguments>
+<doc>Verify that an attribute of an element matches the expected criteria.
+
+The element is identified by _locator_. See `introduction` for details
+about locating elements. If more than one element matches, the first element is selected.
+
+The _attr_name_ is the name of the attribute within the selected element.
+
+The _match_pattern_ is used for the matching, if the match_pattern is
+- boolean or 'True'/'true'/'False'/'false' String then a boolean match is applied
+- any other string is cause a string match
+
+The _regexp_ defines whether the string match is done using regular expressions (i.e. BuiltIn Library's
+[http://robotframework.org/robotframework/latest/libraries/BuiltIn.html#Should%20Match%20Regexp|Should
+Match Regexp] or string pattern match (i.e. BuiltIn Library's
+[http://robotframework.org/robotframework/latest/libraries/BuiltIn.html#Should%20Match|Should
+Match])
+
+
+Examples:
+
+| Element Attribute Should Match | xpath = //*[contains(@text,'foo')] | text | *foobar |
+| Element Attribute Should Match | xpath = //*[contains(@text,'foo')] | text | f.*ar | regexp = True |
+| Element Attribute Should Match | xpath = //*[contains(@text,'foo')] | enabled | True |
+
+| 1. is a string pattern match i.e. the 'text' attribute should end with the string 'foobar'
+| 2. is a regular expression match i.e. the regexp 'f.*ar' should be within the 'text' attribute
+| 3. is a boolead match i.e. the 'enabled' attribute should be True
+
+
+_*NOTE: *_
+On Android the supported attribute names are hard-coded in the
+[https://github.com/appium/appium/blob/master/lib/devices/android/bootstrap/src/io/appium/android/bootstrap/AndroidElement.java|AndroidElement]
+Class's getBoolAttribute() and getStringAttribute() methods.
+Currently supported (appium v1.4.11):
+_contentDescription, text, className, resourceId, enabled, checkable, checked, clickable, focusable, focused, longClickable, scrollable, selected, displayed_
+
+
+_*NOTE: *_
+Some attributes can be evaluated in two different ways e.g. these evaluate the same thing:
+
+| Element Attribute Should Match | xpath = //*[contains(@text,'example text')] | name | txt_field_name |
+| Element Name Should Be         | xpath = //*[contains(@text,'example text')] | txt_field_name |      |</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Element Should Be Disabled">
+<arguments>
+<arg>locator</arg>
+<arg>loglevel=INFO</arg>
+</arguments>
+<doc>Verifies that element identified with locator is disabled.
+
+Key attributes for arbitrary elements are `id` and `name`. See
+`introduction` for details about locating elements.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Element Should Be Enabled">
+<arguments>
+<arg>locator</arg>
+<arg>loglevel=INFO</arg>
+</arguments>
+<doc>Verifies that element identified with locator is enabled.
+
+Key attributes for arbitrary elements are `id` and `name`. See
+`introduction` for details about locating elements.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Element Should Be Visible">
+<arguments>
+<arg>locator</arg>
+<arg>loglevel=INFO</arg>
+</arguments>
+<doc>Verifies that element identified with locator is visible.
+
+Key attributes for arbitrary elements are `id` and `name`. See
+`introduction` for details about locating elements.
+
+New in AppiumLibrary 1.4.5</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Element Should Contain Text">
+<arguments>
+<arg>locator</arg>
+<arg>expected</arg>
+<arg>message=</arg>
+</arguments>
+<doc>Verifies element identified by ``locator`` contains text ``expected``.
+
+If you wish to assert an exact (not a substring) match on the text
+of the element, use `Element Text Should Be`.
+
+Key attributes for arbitrary elements are ``id`` and ``xpath``. ``message`` can be used to override the default error message.
+
+New in AppiumLibrary 1.4.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Element Should Not Contain Text">
+<arguments>
+<arg>locator</arg>
+<arg>expected</arg>
+<arg>message=</arg>
+</arguments>
+<doc>Verifies element identified by ``locator`` does not contain text ``expected``.
+
+``message`` can be used to override the default error message.
+See `Element Should Contain Text` for more details.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Element Text Should Be">
+<arguments>
+<arg>locator</arg>
+<arg>expected</arg>
+<arg>message=</arg>
+</arguments>
+<doc>Verifies element identified by ``locator`` exactly contains text ``expected``.
+
+In contrast to `Element Should Contain Text`, this keyword does not try
+a substring match but an exact match on the element identified by ``locator``.
+
+``message`` can be used to override the default error message.
+
+New in AppiumLibrary 1.4.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Get Appium SessionId">
+<arguments>
+</arguments>
+<doc>Returns the current session ID as a reference</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Get Appium Timeout">
+<arguments>
+</arguments>
+<doc>Gets the timeout in seconds that is used by various keywords.
+
+See `Set Appium Timeout` for an explanation.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Get Capability">
+<arguments>
+<arg>capability_name</arg>
+</arguments>
+<doc>Return the desired capability value by desired capability name</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Get Element Attribute">
+<arguments>
+<arg>locator</arg>
+<arg>attribute</arg>
+</arguments>
+<doc>Get element attribute using given attribute: name, value,...
+
+Examples:
+
+| Get Element Attribute | locator | name |
+| Get Element Attribute | locator | value |</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Get Element Location">
+<arguments>
+<arg>locator</arg>
+</arguments>
+<doc>Get element location
+
+Key attributes for arbitrary elements are `id` and `name`. See
+`introduction` for details about locating elements.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Get Element Size">
+<arguments>
+<arg>locator</arg>
+</arguments>
+<doc>Get element size
+
+Key attributes for arbitrary elements are `id` and `name`. See
+`introduction` for details about locating elements.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Get Matching Xpath Count">
+<arguments>
+<arg>xpath</arg>
+</arguments>
+<doc>Returns number of elements matching ``xpath``
+
+One should not use the `xpath=` prefix for 'xpath'. XPath is assumed.
+
+| *Correct:* |
+| ${count}  | Get Matching Xpath Count | //android.view.View[@text='Test'] |
+| Incorrect:  |
+| ${count}  | Get Matching Xpath Count | xpath=//android.view.View[@text='Test'] |
+
+If you wish to assert the number of matching elements, use
+`Xpath Should Match X Times`.
+
+New in AppiumLibrary 1.4.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Get Webelement">
+<arguments>
+<arg>locator</arg>
+</arguments>
+<doc>Returns the first [http://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.remote.webelement|WebElement] object matching ``locator``.
+
+Example:
+| ${element}     | Get Webelement | id=my_element |
+| Click Element  | ${element}     |               |
+
+New in AppiumLibrary 1.4.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Get Webelements">
+<arguments>
+<arg>locator</arg>
+</arguments>
+<doc>Returns list of [http://selenium-python.readthedocs.io/api.html#module-selenium.webdriver.remote.webelement|WebElement] objects matching ``locator``.
+
+Example:
+| @{elements}    | Get Webelements | id=my_element |
+| Click Element  | @{elements}[2]  |               |
+
+This keyword was changed in AppiumLibrary 1.4 in following ways:
+- Name is changed from `Get Elements` to current one.
+- Deprecated argument ``fail_on_error``, use `Run Keyword and Ignore Error` if necessary.
+
+New in AppiumLibrary 1.4.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Get Window Height">
+<arguments>
+</arguments>
+<doc>Get current device height.
+
+Example:
+| ${width}       | Get Window Height |
+| ${height}      | Get Window Height |
+| Click A Point  | ${width           | ${height} |
+
+New in AppiumLibrary 1.4.5</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Get Window Width">
+<arguments>
+</arguments>
+<doc>Get current device width.
+
+Example:
+| ${width}       | Get Window Height |
+| ${height}      | Get Window Height |
+| Click A Point  | ${width           | ${height} |
+
+New in AppiumLibrary 1.4.5</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Input Password">
+<arguments>
+<arg>locator</arg>
+<arg>text</arg>
+</arguments>
+<doc>Types the given password into text field identified by `locator`.
+
+Difference between this keyword and `Input Text` is that this keyword
+does not log the given password. See `introduction` for details about
+locating elements.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Input Text">
+<arguments>
+<arg>locator</arg>
+<arg>text</arg>
+</arguments>
+<doc>Types the given `text` into text field identified by `locator`.
+
+See `introduction` for details about locating elements.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Launch Application">
+<arguments>
+</arguments>
+<doc>Launch application. Application can be launched while Appium session running.
+This keyword can be used to launch application during test case or between test cases.
+
+This keyword works while `Open Application` has a test running. This is good practice to `Launch Application`
+and `Quit Application` between test cases. As Suite Setup is `Open Application`, `Test Setup` can be used to `Launch Application`
+
+Example (syntax is just a representation, refer to RF Guide for usage of Setup/Teardown):
+| [Setup Suite] |
+|  | Open Application | http://localhost:4723/wd/hub | platformName=Android | deviceName=192.168.56.101:5555 | app=${CURDIR}/demoapp/OrangeDemoApp.apk |
+| [Test Setup] |
+|  | Launch Application |
+|  |  | &lt;&lt;&lt;test execution&gt;&gt;&gt; |
+|  |  | &lt;&lt;&lt;test execution&gt;&gt;&gt; |
+| [Test Teardown] |
+|  | Quit Application |
+| [Suite Teardown] |
+|  | Close Application |
+
+See `Quit Application` for quiting application but keeping Appium sesion running.
+
+New in AppiumLibrary 1.4.6</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Log Source">
+<arguments>
+<arg>loglevel=INFO</arg>
+</arguments>
+<doc>Logs and returns the entire html source of the current page or frame.
+
+The `loglevel` argument defines the used log level. Valid log levels are
+`WARN`, `INFO` (default), `DEBUG`, `TRACE` and `NONE` (no logging).</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Long Press">
+<arguments>
+<arg>locator</arg>
+<arg>duration=1000</arg>
+</arguments>
+<doc>Long press the element with optional duration</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Maximize Window">
+<arguments>
+</arguments>
+<doc>Maximizes the current application window.
+
+Windows Only.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Mouse Over And Click Element">
+<arguments>
+<arg>locator</arg>
+<arg>double_click=False</arg>
+<arg>x_offset=0</arg>
+<arg>y_offset=0</arg>
+</arguments>
+<doc>Moves the mouse over and clicks the given ``locator``.
+
+``double_click`` can be used to click twice.
+
+``x_offset`` and ``y_offset`` can be used to move to a specific coordinate.
+
+See also `Mouse Over And Click Text`</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Mouse Over And Click Text">
+<arguments>
+<arg>text</arg>
+<arg>exact_match=False</arg>
+<arg>double_click=False</arg>
+<arg>x_offset=0</arg>
+<arg>y_offset=0</arg>
+</arguments>
+<doc>Moves the mouse over and clicks the given ``locator``.
+
+``double_click`` can be used to click twice.
+
+``x_offset`` and ``y_offset`` can be used to move to a specific coordinate.
+
+See also `Mouse Over And Click Element`</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Mouse Over And Context Click Element">
+<arguments>
+<arg>locator</arg>
+<arg>x_offset=0</arg>
+<arg>y_offset=0</arg>
+</arguments>
+<doc>Moves the mouse over and right-clicks the given ``locator``.
+
+``x_offset`` and ``y_offset`` can be used to move to a specific coordinate.
+
+See also `Mouse Over And Click Element`</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Mouse Over And Context Click Text">
+<arguments>
+<arg>text</arg>
+<arg>exact_match=False</arg>
+<arg>x_offset=0</arg>
+<arg>y_offset=0</arg>
+</arguments>
+<doc>Moves the mouse over and right-clicks the given ``locator``.
+
+``x_offset`` and ``y_offset`` can be used to move to a specific coordinate.
+
+See also `Mouse Over And Click Text`</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Mouse Over By Offset">
+<arguments>
+<arg>x_offset=0</arg>
+<arg>y_offset=0</arg>
+</arguments>
+<doc>Moves the mouse from its current location by the given ``x_offset`` and ``y_offset``.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Mouse Over Element">
+<arguments>
+<arg>locator</arg>
+<arg>x_offset=0</arg>
+<arg>y_offset=0</arg>
+</arguments>
+<doc>Moves the mouse over the given ``locator``.
+
+``x_offset`` and ``y_offset`` can be used to move to a specific coordinate.
+
+See also `Mouse Over Text`</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Mouse Over Text">
+<arguments>
+<arg>text</arg>
+<arg>exact_match=False</arg>
+<arg>x_offset=0</arg>
+<arg>y_offset=0</arg>
+</arguments>
+<doc>Moves the mouse over the given ``locator``.
+
+``x_offset`` and ``y_offset`` can be used to move to a specific coordinate.
+
+See also `Mouse Over Element`</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Open Application">
+<arguments>
+<arg>remote_url</arg>
+<arg>alias=None</arg>
+<arg>window_name=None</arg>
+<arg>splash_delay=0</arg>
+<arg>**kwargs</arg>
+</arguments>
+<doc>Opens a new application to given Appium server.
+If your application has a splash screen please supply the window name of the final window that will appear.
+For the capabilities of appium server and Windows,
+Please check http://appium.io/docs/en/drivers/windows
+| *Option*            | *Man.* | *Description*                                                        |
+| remote_url          | Yes    | Appium server url                                                    |
+| alias               | No     | Alias                                                                |
+| window_name         | No     | Window name you wish to attach, usually after a splash screen        |
+| splash_delay        | No     | Delay used when waiting for a splash screen to load, in seconds      |
+
+Examples:
+| Open Application | http://localhost:4723/wd/hub | alias=Myapp1         | platformName=Windows            | deviceName=Windows           | app=your.app          |
+| Open Application | http://localhost:4723/wd/hub | alias=Myapp1         | platformName=Windows            | deviceName=Windows           | app=your.app          | window_name=MyApplication          | splash_delay=5          |</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Page Should Contain Element">
+<arguments>
+<arg>locator</arg>
+<arg>loglevel=INFO</arg>
+</arguments>
+<doc>Verifies that current page contains `locator` element.
+
+If this keyword fails, it automatically logs the page source
+using the log level specified with the optional `loglevel` argument.
+Giving `NONE` as level disables logging.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Page Should Contain Text">
+<arguments>
+<arg>text</arg>
+<arg>loglevel=INFO</arg>
+</arguments>
+<doc>Verifies that current page contains `text`.
+
+If this keyword fails, it automatically logs the page source
+using the log level specified with the optional `loglevel` argument.
+Giving `NONE` as level disables logging.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Page Should Not Contain Element">
+<arguments>
+<arg>locator</arg>
+<arg>loglevel=INFO</arg>
+</arguments>
+<doc>Verifies that current page not contains `locator` element.
+
+If this keyword fails, it automatically logs the page source
+using the log level specified with the optional `loglevel` argument.
+Giving `NONE` as level disables logging.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Page Should Not Contain Text">
+<arguments>
+<arg>text</arg>
+<arg>loglevel=INFO</arg>
+</arguments>
+<doc>Verifies that current page not contains `text`.
+
+If this keyword fails, it automatically logs the page source
+using the log level specified with the optional `loglevel` argument.
+Giving `NONE` as level disables logging.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Quit Application">
+<arguments>
+</arguments>
+<doc>Quit application. Application can be quit while Appium session is kept alive.
+This keyword can be used to close application during test case or between test cases.
+
+See `Launch Application` for an explanation.
+
+New in AppiumLibrary 1.4.6</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Register Keyword To Run On Failure">
+<arguments>
+<arg>keyword</arg>
+</arguments>
+<doc>Sets the keyword to execute when a AppiumLibrary keyword fails.
+
+`keyword_name` is the name of a keyword (from any available
+libraries) that  will be executed if a AppiumLibrary keyword fails.
+It is not possible to use a keyword that requires arguments.
+Using the value "Nothing" will disable this feature altogether.
+
+The initial keyword to use is set in `importing`, and the
+keyword that is used by default is `Capture Page Screenshot`.
+Taking a screenshot when something failed is a very useful
+feature, but notice that it can slow down the execution.
+
+This keyword returns the name of the previously registered
+failure keyword. It can be used to restore the original
+value later.
+
+Example:
+| Register Keyword To Run On Failure  | Log Source | # Run `Log Source` on failure. |
+| ${previous kw}= | Register Keyword To Run On Failure  | Nothing    | # Disables run-on-failure functionality and stores the previous kw name in a variable. |
+| Register Keyword To Run On Failure  | ${previous kw} | # Restore to the previous keyword. |
+
+This run-on-failure functionality only works when running tests on Python/Jython 2.4
+or newer and it does not work on IronPython at all.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Save Appium Screenshot">
+<arguments>
+</arguments>
+<doc>Takes a screenshot with a unique filename to be stored in Robot Framework compiled reports.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Send Keys">
+<arguments>
+<arg>*argv</arg>
+</arguments>
+<doc>Sends the desired keys in ``argv``.
+
+A list of special key codes can be found
+[https://seleniumhq.github.io/selenium/docs/api/py/webdriver/selenium.webdriver.common.keys.html|here]</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Send Keys To Element">
+<arguments>
+<arg>locator</arg>
+<arg>*argv</arg>
+</arguments>
+<doc>Sends the desired keys in ``argv`` to ``locator``.
+
+A list of special key codes can be found
+[https://seleniumhq.github.io/selenium/docs/api/py/webdriver/selenium.webdriver.common.keys.html|here]</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Set Appium Timeout">
+<arguments>
+<arg>seconds</arg>
+</arguments>
+<doc>Sets the timeout in seconds used by various keywords.
+
+There are several `Wait ...` keywords that take timeout as an
+argument. All of these timeout arguments are optional. The timeout
+used by all of them can be set globally using this keyword.
+
+The previous timeout value is returned by this keyword and can
+be used to set the old value back later. The default timeout
+is 5 seconds, but it can be altered in `importing`.
+
+Example:
+| ${orig timeout} = | Set Appium Timeout | 15 seconds |
+| Open page that loads slowly |
+| Set Appium Timeout | ${orig timeout} |</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Switch Application">
+<arguments>
+<arg>index_or_alias</arg>
+</arguments>
+<doc>Switches the active application by index or alias.
+
+`index_or_alias` is either application index (an integer) or alias
+(a string). Index is got as the return value of `Open Application`.
+
+This keyword returns the index of the previous active application,
+which can be used to switch back to that application later.
+
+Example:
+| ${appium1}=              | Open Application  | http://localhost:4723/wd/hub                   | alias=MyApp1 | platformName=iOS | platformVersion=7.0 | deviceName='iPhone Simulator' | app=your.app |
+| ${appium2}=              | Open Application  | http://localhost:4755/wd/hub                   | alias=MyApp2 | platformName=iOS | platformVersion=7.0 | deviceName='iPhone Simulator' | app=your.app |
+| Click Element            | sendHello         | # Executed on appium running at localhost:4755 |
+| Switch Application       | ${appium1}        | # Switch using index                           |
+| Click Element            | ackHello          | # Executed on appium running at localhost:4723 |
+| Switch Application       | MyApp2            | # Switch using alias                           |
+| Page Should Contain Text | ackHello Received | # Executed on appium running at localhost:4755 |</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Switch Application By Name">
+<arguments>
+<arg>remote_url</arg>
+<arg>window_name</arg>
+<arg>alias=None</arg>
+<arg>**kwargs</arg>
+</arguments>
+<doc>Switches to a currently opened window by ``window_name``.
+For the capabilities of appium server and Windows,
+Please check http://appium.io/docs/en/drivers/windows
+| *Option*            | *Man.* | *Description*                         |
+| remote_url          | Yes    | Appium server url                     |
+| window_name         | Yes    | Window name you wish to attach        |
+| alias               | No     | alias                                 |
+
+Examples:
+| Switch Application By Name | http://localhost:4723/wd/hub | alias=Myapp1         | platformName=Windows            | deviceName=Windows           | window_name=MyApplication         |</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Text Should Be Visible">
+<arguments>
+<arg>text</arg>
+<arg>exact_match=False</arg>
+<arg>loglevel=INFO</arg>
+</arguments>
+<doc>Verifies that element identified with text is visible.
+
+New in AppiumLibrary 1.4.5</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Wait For And Clear Text">
+<arguments>
+<arg>locator</arg>
+<arg>timeout=None</arg>
+<arg>error=None</arg>
+</arguments>
+<doc>Wait for and then clear the text field identified by ``locator``.
+
+Fails if ``timeout`` expires before the element appears.
+
+``error`` can be used to override the default error message.
+
+See `introduction` for details about locating elements.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Wait For And Click Element">
+<arguments>
+<arg>locator</arg>
+<arg>timeout=None</arg>
+<arg>error=None</arg>
+</arguments>
+<doc>Wait for and click the element identified by ``locator``.
+
+Fails if ``timeout`` expires before the element appears.
+
+``error`` can be used to override the default error message.
+
+See `introduction` for details about locating elements.
+
+Use `Wait For And Mouse Over And Click Element` if this keyword gives issues in the application.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Wait For And Click Text">
+<arguments>
+<arg>text</arg>
+<arg>exact_match=False</arg>
+<arg>timeout=None</arg>
+<arg>error=None</arg>
+</arguments>
+<doc>Wait for and click text identified by ``text``.
+
+Fails if ``timeout`` expires before the element appears.
+
+``error`` can be used to override the default error message.
+
+By default tries to click first text involves given ``text``. If you would
+like to click exactly matching text, then set ``exact_match`` to `True`.
+
+Use `Wait For And Mouse Over And Click Text` if this keyword gives issues in the application.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Wait For And Input Password">
+<arguments>
+<arg>locator</arg>
+<arg>text</arg>
+<arg>timeout=None</arg>
+<arg>error=None</arg>
+</arguments>
+<doc>Wait for and type the given password into the text field identified by ``locator``.
+
+Fails if ``timeout`` expires before the element appears.
+
+``error`` can be used to override the default error message.
+
+The difference between this keyword and `Wait For And Input Text` is that this keyword
+does not log the given password. See `introduction` for details about locating elements.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Wait For And Input Text">
+<arguments>
+<arg>locator</arg>
+<arg>text</arg>
+<arg>timeout=None</arg>
+<arg>error=None</arg>
+</arguments>
+<doc>Wait for and type the given ``locator`` into text field identified by ``locator``.
+
+Fails if ``timeout`` expires before the element appears.
+
+``error`` can be used to override the default error message.
+
+See `introduction` for details about locating elements.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Wait For And Long Press">
+<arguments>
+<arg>locator</arg>
+<arg>duration=10000</arg>
+<arg>timeout=None</arg>
+<arg>error=None</arg>
+</arguments>
+<doc>Wait for and long press the element identified by ``locator`` with optional duration.
+
+Fails if ``timeout`` expires before the element appears.
+
+``error`` can be used to override the default error message.
+
+See `introduction` for details about locating elements.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Wait For And Mouse Over And Click Element">
+<arguments>
+<arg>locator</arg>
+<arg>timeout=None</arg>
+<arg>error=None</arg>
+<arg>double_click=False</arg>
+<arg>x_offset=0</arg>
+<arg>y_offset=0</arg>
+</arguments>
+<doc>Waits for, moves the mouse over, and clicks the given ``locator``.
+
+Fails if ``timeout`` expires before the element appears.
+
+``error`` can be used to override the default error message.
+
+``double_click`` can be used to click twice.
+
+``x_offset`` and ``y_offset`` can be used to move to a specific coordinate.
+
+See also `Wait For And Mouse Over And Click Text`</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Wait For And Mouse Over And Click Text">
+<arguments>
+<arg>text</arg>
+<arg>exact_match=False</arg>
+<arg>timeout=None</arg>
+<arg>error=None</arg>
+<arg>double_click=False</arg>
+<arg>x_offset=0</arg>
+<arg>y_offset=0</arg>
+</arguments>
+<doc>Waits for, moves the mouse over, and clicks the given ``locator``.
+
+Fails if ``timeout`` expires before the element appears.
+
+``error`` can be used to override the default error message.
+
+``double_click`` can be used to click twice.
+
+``x_offset`` and ``y_offset`` can be used to move to a specific coordinate.
+
+See also `Wait For And Mouse Over And Click Element`</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Wait For And Mouse Over Element">
+<arguments>
+<arg>locator</arg>
+<arg>timeout=None</arg>
+<arg>error=None</arg>
+<arg>x_offset=0</arg>
+<arg>y_offset=0</arg>
+</arguments>
+<doc>Waits for and moves the mouse over the given ``locator``.
+
+Fails if ``timeout`` expires before the element appears.
+
+``error`` can be used to override the default error message.
+
+``x_offset`` and ``y_offset`` can be used to move to a specific coordinate.
+
+See also `Wait For And Mouse Over Text`</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Wait For And Mouse Over Text">
+<arguments>
+<arg>text</arg>
+<arg>exact_match=False</arg>
+<arg>timeout=None</arg>
+<arg>error=None</arg>
+<arg>x_offset=0</arg>
+<arg>y_offset=0</arg>
+</arguments>
+<doc>Moves the mouse over the given ``locator``.
+
+Fails if ``timeout`` expires before the element appears.
+
+``error`` can be used to override the default error message.
+
+``x_offset`` and ``y_offset`` can be used to move to a specific coordinate.
+
+See also `Wait For And Mouse Over Element`</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Wait Until Element Contains">
+<arguments>
+<arg>locator</arg>
+<arg>text</arg>
+<arg>timeout=None</arg>
+<arg>error=None</arg>
+</arguments>
+<doc>Waits until element specified with ``locator`` contains ``text``.
+
+Fails if ``timeout`` expires before the element appears.
+
+``error`` can be used to override the default error message.
+
+See also `Wait Until Page Contains`,
+`Wait Until Page Does Not Contain`
+`Wait Until Page Does Not Contain Element`</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Wait Until Element Does Not Contain">
+<arguments>
+<arg>locator</arg>
+<arg>text</arg>
+<arg>timeout=None</arg>
+<arg>error=None</arg>
+</arguments>
+<doc>Waits until element specified with ``locator`` does not contain ``text``.
+
+Fails if ``timeout`` expires before the element appears.
+
+``error`` can be used to override the default error message.
+
+See also `Wait Until Element Contains`,
+`Wait Until Page Contains`,
+`Wait Until Page Does Not Contain`
+`Wait Until Page Does Not Contain Element`</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Wait Until Element Is Disabled">
+<arguments>
+<arg>locator</arg>
+<arg>timeout=None</arg>
+<arg>error=None</arg>
+</arguments>
+<doc>Waits until element specified with ``locator`` is disabled.
+
+Fails if ``timeout`` expires before the element appears.
+
+``error`` can be used to override the default error message.
+
+See also `Wait Until Element Is Disabled`</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Wait Until Element Is Enabled">
+<arguments>
+<arg>locator</arg>
+<arg>timeout=None</arg>
+<arg>error=None</arg>
+</arguments>
+<doc>Waits until element specified with ``locator`` is enabled.
+
+Fails if ``timeout`` expires before the element appears.
+
+``error`` can be used to override the default error message.
+
+See also `Wait Until Element Is Disabled`</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Wait Until Element Is Visible">
+<arguments>
+<arg>locator</arg>
+<arg>timeout=None</arg>
+<arg>error=None</arg>
+</arguments>
+<doc>Waits until element specified with `locator` is visible.
+
+Fails if `timeout` expires before the element is visible. See
+`introduction` for more information about `timeout` and its
+default value.
+
+`error` can be used to override the default error message.
+
+See also `Wait Until Page Contains`, `Wait Until Page Contains 
+Element`, `Wait For Condition` and BuiltIn keyword `Wait Until Keyword
+Succeeds`.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Wait Until Page Contains">
+<arguments>
+<arg>text</arg>
+<arg>timeout=None</arg>
+<arg>error=None</arg>
+</arguments>
+<doc>Waits until `text` appears on current page.
+
+Fails if `timeout` expires before the text appears. See
+`introduction` for more information about `timeout` and its
+default value.
+
+`error` can be used to override the default error message.
+
+See also `Wait Until Page Does Not Contain`,
+`Wait Until Page Contains Element`,
+`Wait Until Page Does Not Contain Element` and
+BuiltIn keyword `Wait Until Keyword Succeeds`.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Wait Until Page Contains Element">
+<arguments>
+<arg>locator</arg>
+<arg>timeout=None</arg>
+<arg>error=None</arg>
+</arguments>
+<doc>Waits until element specified with `locator` appears on current page.
+
+Fails if `timeout` expires before the element appears. See
+`introduction` for more information about `timeout` and its
+default value.
+
+`error` can be used to override the default error message.
+
+See also `Wait Until Page Contains`,
+`Wait Until Page Does Not Contain`
+`Wait Until Page Does Not Contain Element`
+and BuiltIn keyword `Wait Until Keyword Succeeds`.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Wait Until Page Does Not Contain">
+<arguments>
+<arg>text</arg>
+<arg>timeout=None</arg>
+<arg>error=None</arg>
+</arguments>
+<doc>Waits until `text` disappears from current page.
+
+Fails if `timeout` expires before the `text` disappears. See
+`introduction` for more information about `timeout` and its
+default value.
+
+`error` can be used to override the default error message.
+
+See also `Wait Until Page Contains`,
+`Wait Until Page Contains Element`,
+`Wait Until Page Does Not Contain Element` and
+BuiltIn keyword `Wait Until Keyword Succeeds`.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Wait Until Page Does Not Contain Element">
+<arguments>
+<arg>locator</arg>
+<arg>timeout=None</arg>
+<arg>error=None</arg>
+</arguments>
+<doc>Waits until element specified with `locator` disappears from current page.
+
+Fails if `timeout` expires before the element disappears. See
+`introduction` for more information about `timeout` and its
+default value.
+
+`error` can be used to override the default error message.
+
+See also `Wait Until Page Contains`,
+`Wait Until Page Does Not Contain`,
+`Wait Until Page Contains Element` and
+BuiltIn keyword `Wait Until Keyword Succeeds`.</doc>
+<tags>
+</tags>
+</kw>
+<kw name="Xpath Should Match X Times">
+<arguments>
+<arg>xpath</arg>
+<arg>count</arg>
+<arg>error=None</arg>
+<arg>loglevel=INFO</arg>
+</arguments>
+<doc>Verifies that the page contains the given number of elements located by the given ``xpath``.
+
+One should not use the `xpath=` prefix for 'xpath'. XPath is assumed.
+
+| *Correct:* |
+| Xpath Should Match X Times | //android.view.View[@text='Test'] | 1 |
+| Incorrect: |
+| Xpath Should Match X Times | xpath=//android.view.View[@text='Test'] | 1 |
+
+``error`` can be used to override the default error message.
+
+See `Log Source` for explanation about ``loglevel`` argument.
+
+New in AppiumLibrary 1.4.</doc>
+<tags>
+</tags>
+</kw>
+</keywordspec>
