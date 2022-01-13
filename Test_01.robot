@@ -20,7 +20,13 @@ Start App
 
 *** Test Cases ***
 test    
-    Wait For And Input Text    accessibility_id=15    Hello
+    Wait For And Input Text    accessibility_id=15    ${text}
     Wait For And Click Element    Name=Help     
     Wait For And Click Element    Name=About Notepad
-    Wait For And Click Element    accessibility_id=1    
+    Wait For And Click Element    accessibility_id=1
+    Wait For And Click Element    Name=File 
+    Wait For And Click Element    accessibility_id=2
+     Wait For And Click Element    Name=Save
+     ${acak}=    Generate Random String    length=6    chars=[NUMBERS]
+     Wait For And Input Text    accessibility_id=1001    test${acak}.txt
+     Wait For And Click Element    accessibility_id=1   
